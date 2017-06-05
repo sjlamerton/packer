@@ -33,6 +33,7 @@ type Meta struct {
 	// These are set by command-line flags
 	flagBuildExcept []string
 	flagBuildOnly   []string
+	flagPrivVars    []string
 	flagVars        map[string]string
 }
 
@@ -120,7 +121,7 @@ func (m *Meta) FlagSet(n string, fs FlagSetFlags) *flag.FlagSet {
 		f.Var((*kvflag.Flag)(&m.flagVars), "var", "")
 		f.Var((*kvflag.FlagJSON)(&m.flagVars), "var-file", "")
 		// designate any of the above variables that are private
-		f.Var((*sliceflag.StringFlag)(&m.flagVars), "priv-vars", "")
+		f.Var((*sliceflag.StringFlag)(&m.flagPrivVars), "priv-vars", "")
 	}
 
 	// Create an io.Writer that writes to our Ui properly for errors.
