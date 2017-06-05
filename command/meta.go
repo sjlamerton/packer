@@ -119,6 +119,8 @@ func (m *Meta) FlagSet(n string, fs FlagSetFlags) *flag.FlagSet {
 	if fs&FlagSetVars != 0 {
 		f.Var((*kvflag.Flag)(&m.flagVars), "var", "")
 		f.Var((*kvflag.FlagJSON)(&m.flagVars), "var-file", "")
+		// designate any of the above variables that are private
+		f.Var((*sliceflag.StringFlag)(&m.flagVars), "priv-vars", "")
 	}
 
 	// Create an io.Writer that writes to our Ui properly for errors.

@@ -337,9 +337,17 @@ func (c *PushCommand) upload(
 
 	buildVars := atlas.BuildVars{}
 	for k, v := range opts.Vars {
+		isSensitive := false
+		for _, sensitive_var := range opts.Vars["priv-vars"]{
+			sensitive_var == k{
+				isSensitive = true
+				break
+			}
+		}
 		buildVars = append(buildVars, atlas.BuildVar{
 			Key:   k,
 			Value: v,
+			Sensitive: isSensitive,
 		})
 	}
 
